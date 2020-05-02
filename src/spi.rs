@@ -46,6 +46,17 @@ where
     ) -> Result<Measurements<SPIError<SPIE, PinE>>, Error<SPIError<SPIE, PinE>>> {
         self.common.measure()
     }
+
+    /// Destroys the object and returns the underlying interfaces.
+    ///
+    /// After this function has been called, the bus can be used for a different device.
+    pub fn destroy(self) -> (SPI, CS, D) {
+        (
+            self.common.interface.spi,
+            self.common.interface.cs,
+            self.common.delay,
+        )
+    }
 }
 
 /// Register access functions for SPI

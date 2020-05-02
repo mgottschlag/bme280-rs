@@ -52,6 +52,13 @@ where
     pub fn measure(&mut self) -> Result<Measurements<E>, Error<E>> {
         self.common.measure()
     }
+
+    /// Destroys the object and returns the underlying interfaces.
+    ///
+    /// After this function has been called, the bus can be used for a different device.
+    pub fn destroy(self) -> (I2C, D) {
+        (self.common.interface.i2c, self.common.delay)
+    }
 }
 
 /// Register access functions for I2C
